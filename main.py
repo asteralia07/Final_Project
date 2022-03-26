@@ -26,6 +26,8 @@ import validators
 import nltk
 nltk.download('punkt')
 
+import base64
+
 def sumy_summarizer(docx, num=5):
     parser = PlaintextParser.from_string(docx, Tokenizer("english"))
     lex_summarizer = LexRankSummarizer()
