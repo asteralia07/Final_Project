@@ -65,7 +65,6 @@ def evaluate_summary(summary,reference):
     return eval_score_df
 
 def main():
-
     st.set_page_config(
         layout="wide",
         page_title="Text Article Analyzer",
@@ -74,6 +73,14 @@ def main():
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
+    hide_st_style = """
+                <style>
+                #MainMenu {visibility: hidden;}
+                footer {visibility: hidden;}
+                header {visibility: hidden;}
+                </style>
+                """
+    st.markdown(hide_st_style, unsafe_allow_html=True)
 
     with st.sidebar:
         selected = option_menu("Methods", ["Raw_Text", 'Folder', 'URL', 'Evaluate_Summary'],
