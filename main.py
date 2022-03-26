@@ -67,7 +67,8 @@ def evaluate_summary(summary,reference):
 def main():
     st.set_page_config(
         layout="wide",
-        page_title="Text Article Analyzer"
+        page_title="Text Article Analyzer",
+        page_icon="★"
     )
 
     with st.sidebar:
