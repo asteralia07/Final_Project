@@ -65,7 +65,10 @@ def evaluate_summary(summary,reference):
     return eval_score_df
 
 def main():
-    st.set_page_config(layout="wide")
+    st.set_page_config(
+        layout="wide",
+        page_title="Text Article Analyzer"
+    )
 
     with st.sidebar:
         selected = option_menu("Methods", ["Raw_Text", 'Folder', 'URL', 'Evaluate_Summary'],
