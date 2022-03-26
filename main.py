@@ -23,7 +23,8 @@ from requests import get
 
 import validators
 
-
+import nltk
+nltk.download('punkt')
 
 def sumy_summarizer(docx, num=5):
     parser = PlaintextParser.from_string(docx, Tokenizer("english"))
