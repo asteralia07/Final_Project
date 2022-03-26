@@ -118,7 +118,7 @@ def main():
             else:
                 raw_text = docx2txt.process(text_file)
 
-        col1, col2, col3, col4, col5, col6, col7, col8= st.columns()
+        col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
         if col8.button("Summarize"):
             try:
                 processed_text = nfx.remove_stopwords(raw_text)
