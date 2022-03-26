@@ -26,8 +26,6 @@ import validators
 import nltk
 nltk.download('punkt')
 
-import base64
-
 def sumy_summarizer(docx, num=5):
     parser = PlaintextParser.from_string(docx, Tokenizer("english"))
     lex_summarizer = LexRankSummarizer()
@@ -67,6 +65,7 @@ def evaluate_summary(summary,reference):
     return eval_score_df
 
 def main():
+
     st.set_page_config(
         layout="wide",
         page_title="Text Article Analyzer",
@@ -74,6 +73,7 @@ def main():
 
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
 
     with st.sidebar:
         selected = option_menu("Methods", ["Raw_Text", 'Folder', 'URL', 'Evaluate_Summary'],
