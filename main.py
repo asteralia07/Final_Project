@@ -48,6 +48,7 @@ def plot_word_freq(docx, num=10):
         x='Tokens', y='Counts')
     st.altair_chart(c, use_container_width=True)
 
+
 def read_pdf2(file):
     all_text = ""
     with pdfplumber.open(file) as pdf:
