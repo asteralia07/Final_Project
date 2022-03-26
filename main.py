@@ -78,8 +78,8 @@ def main():
         st.subheader("Raw Text")
         raw_text = st.text_area("Enter Text Here", height=120)
 
-        col1, col2, col3, col4, col5, col6, col7, col8, col9, col10 = st.columns(10)
-        if col10.button("Summarize"):
+        col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
+        if col8.button("Summarize"):
             try:
                 processed_text = nfx.remove_stopwords(raw_text)
                 with st.expander("Original Text"):
@@ -118,8 +118,8 @@ def main():
             else:
                 raw_text = docx2txt.process(text_file)
 
-        col1, col2, col3, col4, col5, col6, col7, col8, col9, col10 = st.columns(10)
-        if col10.button("Summarize"):
+        col1, col2, col3, col4, col5, col6, col7, col8= st.columns()
+        if col8.button("Summarize"):
             try:
                 processed_text = nfx.remove_stopwords(raw_text)
                 with st.expander("Original Text"):
@@ -149,9 +149,9 @@ def main():
         st.subheader("Uniform Resource Locator (URL)")
 
         url = st.text_input('Enter URL here:')
-        col1, col2, col3, col4, col5, col6, col7, col8, col9, col10 = st.columns(10)
+        col1, col2, col3, col4, col5, col6, col7, col8= st.columns(8)
 
-        if col10.button("Summarize"):
+        if col8.button("Summarize"):
             valid = validators.url(url)
             if valid == True:
                 response = get(url)
@@ -194,8 +194,8 @@ def main():
         with col2:
             my_summary = st.text_area("Enter Computer Generated Summary Here:", height=120)
 
-        col1, col2, col3, col4, col5, col6, col7, col8, col9, col10 = st.columns(10)
-        if col10.button("Evaluate"):
+        col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
+        if col8.button("Evaluate"):
             try:
                 with st.expander("Rouge Score"):
                     score = evaluate_summary(my_summary, raw_text)
