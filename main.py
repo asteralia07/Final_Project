@@ -82,7 +82,7 @@ def main():
                 """
     st.markdown(hide_st_style, unsafe_allow_html=True)
 
-    with st.sidebar.image("logos/logos_white.png", use_column_width=True):
+    with st.sidebar.image("logos/logos_black.png", use_column_width=True):
         selected = option_menu("Methods", ["Raw_Text", 'Folder', 'URL', 'Evaluate_Summary'],
                                icons=['pencil', 'folder', 'link','book'], menu_icon="cast", default_index=0)
 
