@@ -86,6 +86,10 @@ def main():
         selected = option_menu("Methods", ["Raw_Text", 'Folder', 'URL', 'Evaluate_Summary'],
                                icons=['pencil', 'folder', 'link','book'], menu_icon="cast", default_index=0)
 
+    with st.topbar:
+        selected2 = option_menu("Methods", ["Raw_Text", 'Folder', 'URL', 'Evaluate_Summary'],
+                               icons=['pencil', 'folder', 'link', 'book'], menu_icon="cast", default_index=0)
+
 # _______________________________________________________________________________________________________________________________
     if selected == "Raw_Text":
         st.markdown("<h1 style='text-align: center;'>Text Article Analyzer</h1>", unsafe_allow_html=True)
