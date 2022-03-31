@@ -82,7 +82,7 @@ def main():
                 """
     st.markdown(hide_st_style, unsafe_allow_html=True)
 
-    with st.sidebar:
+    with st.sidebar.image("Text Article Analyzer-logos_transparent.png", use_column_width=True):
         selected = option_menu("Methods", ["Raw_Text", 'Folder', 'URL', 'Evaluate_Summary'],
                                icons=['pencil', 'folder', 'link','book'], menu_icon="cast", default_index=0)
 
