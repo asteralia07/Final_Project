@@ -11,3 +11,4 @@ streamlit_option_menu==0.3.2
 sumy==0.9.0
 validators==0.18.2
 wordcloud==1.8.1
+click==8
