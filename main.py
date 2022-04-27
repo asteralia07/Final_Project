@@ -49,7 +49,6 @@ def plot_word_freq(docx, num=10):
         x='Tokens', y='Counts')
     st.altair_chart(c, use_container_width=True)
 
-
 def read_pdf2(file):
     all_text = ""
     with pdfplumber.open(file) as pdf:
@@ -73,14 +72,14 @@ def main():
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-    hide_st_style = """
-                <style>
-                #MainMenu {visibility: hidden;}
-                footer {visibility: hidden;}
-                header {visibility: hidden;}
-                </style>
-                """
-    st.markdown(hide_st_style, unsafe_allow_html=True)
+    # hide_st_style = """
+    #             <style>
+    #             #MainMenu {visibility: hidden;}
+    #             footer {visibility: hidden;}
+    #             header {visibility: hidden;}
+    #             </style>
+    #             """
+    # st.markdown(hide_st_style, unsafe_allow_html=True)
 
     with st.sidebar:
         st.image("logos/logos_white.png", use_column_width='auto')
@@ -104,7 +103,8 @@ def main():
                     my_summary = sumy_summarizer(raw_text)
                     st.write(my_summary)
 
-                col1, col2 = st.columns(2)
+                col1, col2\
+                    = st.columns(2)
 
                 with col1:
                     with st.expander("Word Cloud"):
@@ -212,9 +212,21 @@ def main():
         col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
         if col8.button("Evaluate"):
             try:
-                with st.expander("Rouge Score"):
-                    score = evaluate_summary(my_summary, raw_text)
-                    st.write(score)
+                col1, col2 = st.columns(2)
+                with col1:
+                    with st.expander("Rouge Score"):
+                        score = evaluate_summary(my_summary, raw_text)
+                        st.write(score.T)
+                with col2:
+                    with st.expander("Rouge Score Graph"):
+                        score = evaluate_summary(my_summary, raw_text)
+                        st.dataframe(score.T)
+                        eval_score_df['metrics'] = eval_score_df.index
+                        c = alt.Chart(eval_score_df).mark_bar().encode(
+                            x= 'metrics', y='rouge-1'
+                        )
+                        st.altair_chart(c)
+
             except:
                 st.warning("Please Check Inputs")
 
