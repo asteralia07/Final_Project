@@ -225,7 +225,15 @@ def main():
                         c = alt.Chart(score).mark_bar().encode(
                             x= 'metrics', y='rouge-1'
                         )
+                        d = alt.Chart(score).mark_bar().encode(
+                            x= 'metrics', y='rouge-2'
+                        )
+                        e = alt.Chart(score).mark_bar().encode(
+                            x= 'metrics', y='rouge-l'
+                        )
                         st.altair_chart(c)
+                        st.altair_chart(d)
+                        st.altair_chart(e)
 
             except:
                 st.warning("Please Check Inputs")
