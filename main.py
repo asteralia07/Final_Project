@@ -72,6 +72,7 @@ def main():
     with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
+
     # hide_st_style = """
     #             <style>
     #             #MainMenu {visibility: hidden;}
@@ -103,8 +104,7 @@ def main():
                     my_summary = sumy_summarizer(raw_text)
                     st.write(my_summary)
 
-                col1, col2\
-                    = st.columns(2)
+                col1, col2 = st.columns(2)
 
                 with col1:
                     with st.expander("Word Cloud"):
@@ -221,8 +221,8 @@ def main():
                     with st.expander("Rouge Score Graph"):
                         score = evaluate_summary(my_summary, raw_text)
                         st.dataframe(score.T)
-                        eval_score_df['metrics'] = eval_score_df.index
-                        c = alt.Chart(eval_score_df).mark_bar().encode(
+                        score['metrics'] = score.index
+                        c = alt.Chart(score).mark_bar().encode(
                             x= 'metrics', y='rouge-1'
                         )
                         st.altair_chart(c)
