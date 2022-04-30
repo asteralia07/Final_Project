@@ -220,20 +220,27 @@ def main():
                 with col2:
                     with st.expander("Rouge Score Graph"):
                         score = evaluate_summary(my_summary, raw_text)
-                        st.dataframe(score.T)
                         score['metrics'] = score.index
                         c = alt.Chart(score).mark_bar().encode(
                             x= 'metrics', y='rouge-1'
+
                         )
+
                         d = alt.Chart(score).mark_bar().encode(
                             x= 'metrics', y='rouge-2'
+
                         )
+
                         e = alt.Chart(score).mark_bar().encode(
-                            x= 'metrics', y='rouge-l'
+                            x='metrics', y='rouge-l'
+
                         )
-                        st.altair_chart(c)
-                        st.altair_chart(d)
-                        st.altair_chart(e)
+
+                        st.altair_chart(c | d | e)
+
+
+
+
 
             except:
                 st.warning("Please Check Inputs")
