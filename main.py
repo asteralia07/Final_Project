@@ -16,7 +16,6 @@ from wordcloud import WordCloud
 import pdfplumber
 import docx2txt
 
-import seaborn as sns
 from rouge import Rouge
 
 from goose3 import Goose
