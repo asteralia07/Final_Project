@@ -16,6 +16,7 @@ from wordcloud import WordCloud
 import pdfplumber
 import docx2txt
 
+import seaborn as sns
 from rouge import Rouge
 
 from goose3 import Goose
@@ -26,7 +27,7 @@ import validators
 import nltk
 nltk.download('punkt')
 
-def sumy_summarizer(docx, num=5):
+def sumy_summarizer(docx, num):
     parser = PlaintextParser.from_string(docx, Tokenizer("english"))
     lex_summarizer = LexRankSummarizer()
     summary = lex_summarizer(parser.document, num)
@@ -86,14 +87,18 @@ def main():
         st.image("logos/logos_white.png", use_column_width='auto')
         selected = option_menu("Methods", ["Raw_Text", 'Folder', 'URL', 'Evaluate_Summary'],
                                icons=['pencil', 'folder', 'link','book'], menu_icon="cast", default_index=0)
+
 # _______________________________________________________________________________________________________________________________
     if selected == "Raw_Text":
         st.markdown("<h1 style='text-align: center;'>Text Article Analyzer</h1>", unsafe_allow_html=True)
 
         st.subheader("Raw Text")
-        raw_text = st.text_area("Enter Text Here", height=120)
 
+        num = st.slider("Pick the number of sentences you want to extract: ", 1, 20, 5)
+
+        raw_text = st.text_area("Enter Text Here", height=120)
         col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
+
         if col8.button("Summarize"):
             try:
                 processed_text = nfx.remove_stopwords(raw_text)
@@ -101,7 +106,7 @@ def main():
                     st.write(raw_text)
 
                 with st.expander("LexRank"):
-                    my_summary = sumy_summarizer(raw_text)
+                    my_summary = sumy_summarizer(raw_text,num)
                     st.write(my_summary)
 
                 col1, col2 = st.columns(2)
@@ -123,6 +128,8 @@ def main():
         st.markdown("<h1 style='text-align: center;'>Text Article Analyzer</h1>", unsafe_allow_html=True)
         st.subheader("Folder")
 
+        num = st.slider("Pick the number of sentences you want to extract: ", 1, 20, 5)
+
         text_file = st.file_uploader("Upload Document", type=["pdf", "docx", "txt"])
 
         if text_file is not None:
@@ -141,7 +148,7 @@ def main():
                     st.write(raw_text)
 
                 with st.expander("LexRank"):
-                    my_summary = sumy_summarizer(raw_text)
+                    my_summary = sumy_summarizer(raw_text,num)
                     st.write(my_summary)
 
                 col1, col2 = st.columns(2)
@@ -163,6 +170,8 @@ def main():
         st.markdown("<h1 style='text-align: center;'>Text Article Analyzer</h1>", unsafe_allow_html=True)
         st.subheader("Uniform Resource Locator (URL)")
 
+        num = st.slider("Pick the number of sentences you want to extract: ", 1, 20, 5)
+
         url = st.text_input('Enter URL here:')
         col1, col2, col3, col4, col5, col6, col7, col8= st.columns(8)
 
@@ -179,7 +188,7 @@ def main():
                     st.write(raw_text)
 
                 with st.expander("LexRank"):
-                    my_summary = sumy_summarizer(raw_text)
+                    my_summary = sumy_summarizer(raw_text,num)
                     st.write(my_summary)
 
                 col1, col2 = st.columns(2)
