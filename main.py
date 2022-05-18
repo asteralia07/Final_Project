@@ -84,7 +84,7 @@ def main():
 
     with st.sidebar:
         st.image("logos/logos_white.png", use_column_width='auto')
-        selected = option_menu("Methods", ["Raw_Text", 'Folder', 'URL', 'Evaluate_Summary'],
+        selected = option_menu("Methods", ["Raw_Text", 'File', 'URL', 'Evaluate_Summary'],
                                icons=['pencil', 'folder', 'link','book'], menu_icon="cast", default_index=0)
 
 # _______________________________________________________________________________________________________________________________
