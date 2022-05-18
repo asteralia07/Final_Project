@@ -123,9 +123,9 @@ def main():
                 st.warning("Insufficient Data")
 
 # _______________________________________________________________________________________________________________________________
-    elif selected == "Folder":
+    elif selected == "File":
         st.markdown("<h1 style='text-align: center;'>Text Article Analyzer</h1>", unsafe_allow_html=True)
-        st.subheader("Folder")
+        st.subheader("File")
 
         num = st.slider("Pick the number of sentences you want to extract: ", 1, 20, 5)
 
@@ -245,10 +245,6 @@ def main():
                         )
 
                         st.altair_chart(c | d | e)
-
-
-
-
 
             except:
                 st.warning("Please Check Inputs")
