@@ -231,7 +231,6 @@ def main():
                         score['metrics'] = score.index
                         c = alt.Chart(score).mark_bar().encode(
                             x= 'metrics', y='rouge-1'
-
                         )
 
                         d = alt.Chart(score).mark_bar().encode(
