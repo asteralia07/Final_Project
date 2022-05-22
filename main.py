@@ -230,20 +230,22 @@ def main():
                         score = evaluate_summary(my_summary, raw_text)
                         score['metrics'] = score.index
                         c = alt.Chart(score).mark_bar().encode(
-                            x= 'metrics', y='rouge-1'
+                            x= 'rouge-1', y='metrics'
                         )
 
                         d = alt.Chart(score).mark_bar().encode(
-                            x= 'metrics', y='rouge-2'
+                            x= 'rouge-2', y='metrics'
 
                         )
 
                         e = alt.Chart(score).mark_bar().encode(
-                            x='metrics', y='rouge-l'
+                            x='rouge-l', y='metrics'
 
                         )
 
-                        st.altair_chart(c | d | e)
+                        st.altair_chart(c)
+                        st.altair_chart(d)
+                        st.altair_chart(e)
 
             except:
                 st.warning("Please Check Inputs")
