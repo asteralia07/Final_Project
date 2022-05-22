@@ -97,30 +97,33 @@ def main():
 
         raw_text = st.text_area("Enter Text Here", height=120)
         col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
+        count = len(raw_text.split())
+        if count < 1000:
+            if col8.button("Summarize"):
+                try:
+                    processed_text = nfx.remove_stopwords(raw_text)
+                    with st.expander("Original Text"):
+                        st.write(raw_text)
 
-        if col8.button("Summarize"):
-            try:
-                processed_text = nfx.remove_stopwords(raw_text)
-                with st.expander("Original Text"):
-                    st.write(raw_text)
+                    with st.expander("LexRank"):
+                        my_summary = sumy_summarizer(raw_text, num)
+                        st.write(my_summary)
 
-                with st.expander("LexRank"):
-                    my_summary = sumy_summarizer(raw_text,num)
-                    st.write(my_summary)
+                    col1, col2 = st.columns(2)
 
-                col1, col2 = st.columns(2)
-
-                with col1:
-                    with st.expander("Word Cloud"):
-                        try:
-                            plot_worldcloud(processed_text)
-                        except:
-                            st.warning("Insufficient Data")
-                with col2:
-                    with st.expander("Word Frequency"):
-                        plot_word_freq(processed_text)
-            except:
-                st.warning("Insufficient Data")
+                    with col1:
+                        with st.expander("Word Cloud"):
+                            try:
+                                plot_worldcloud(processed_text)
+                            except:
+                                st.warning("Insufficient Data")
+                    with col2:
+                        with st.expander("Word Frequency"):
+                            plot_word_freq(processed_text)
+                except:
+                    st.warning("Insufficient Data")
+        else:
+            st.warning("Words are more than 1000")
 
 # _______________________________________________________________________________________________________________________________
     elif selected == "File":
@@ -140,30 +143,33 @@ def main():
                 raw_text = docx2txt.process(text_file)
 
         col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
-        if col8.button("Summarize"):
-            try:
-                processed_text = nfx.remove_stopwords(raw_text)
-                with st.expander("Original Text"):
-                    st.write(raw_text)
+        count = Counter(raw_text.split())
+        if count < 1000:
+            if col8.button("Summarize"):
+                try:
+                    processed_text = nfx.remove_stopwords(raw_text)
+                    with st.expander("Original Text"):
+                        st.write(raw_text)
 
-                with st.expander("LexRank"):
-                    my_summary = sumy_summarizer(raw_text,num)
-                    st.write(my_summary)
+                    with st.expander("LexRank"):
+                        my_summary = sumy_summarizer(raw_text,num)
+                        st.write(my_summary)
 
-                col1, col2 = st.columns(2)
+                    col1, col2 = st.columns(2)
 
-                with col1:
-                    with st.expander("Word Cloud"):
-                        try:
-                            plot_worldcloud(processed_text)
-                        except:
-                            st.warning("Insufficient Data")
-                with col2:
-                    with st.expander("Word Frequency"):
-                        plot_word_freq(processed_text)
-            except:
-                st.warning("Insufficient Data")
-
+                    with col1:
+                        with st.expander("Word Cloud"):
+                            try:
+                                plot_worldcloud(processed_text)
+                            except:
+                                st.warning("Insufficient Data")
+                    with col2:
+                        with st.expander("Word Frequency"):
+                            plot_word_freq(processed_text)
+                except:
+                    st.warning("Insufficient Data")
+            else:
+                st.warning("Words are more than 1000")
 # _______________________________________________________________________________________________________________________________
     elif selected == "URL":
         st.markdown("<h1 style='text-align: center;'>Text Article Analyzer</h1>", unsafe_allow_html=True)
@@ -182,28 +188,31 @@ def main():
                 article = extractor.extract(raw_html=response.content)
                 raw_text = article.cleaned_text
 
-                processed_text = nfx.remove_stopwords(raw_text)
-                with st.expander("Original Text"):
-                    st.write(raw_text)
+                count = len(raw_text.split())
+                if count < 1000:
+                    processed_text = nfx.remove_stopwords(raw_text)
+                    with st.expander("Original Text"):
+                        st.write(raw_text)
 
-                with st.expander("LexRank"):
-                    my_summary = sumy_summarizer(raw_text,num)
-                    st.write(my_summary)
+                    with st.expander("LexRank"):
+                        my_summary = sumy_summarizer(raw_text,num)
+                        st.write(my_summary)
 
-                col1, col2 = st.columns(2)
+                    col1, col2 = st.columns(2)
 
-                with col1:
-                    with st.expander("Word Cloud"):
-                        try:
-                            plot_worldcloud(processed_text)
-                        except:
-                            st.warning("Insufficient Data")
-                with col2:
-                    with st.expander("Word Frequency"):
-                        plot_word_freq(processed_text)
+                    with col1:
+                        with st.expander("Word Cloud"):
+                            try:
+                                plot_worldcloud(processed_text)
+                            except:
+                                st.warning("Insufficient Data")
+                    with col2:
+                        with st.expander("Word Frequency"):
+                            plot_word_freq(processed_text)
+                else:
+                    st.warning("Words are more than 1000")
             else:
                 st.warning("Not a Valid URL")
-
 # _______________________________________________________________________________________________________________________________
     elif selected == "Evaluate_Summary":
         st.markdown("<h1 style='text-align: center;'>Text Article Analyzer</h1>", unsafe_allow_html=True)
