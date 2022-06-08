@@ -84,8 +84,8 @@ def main():
 
     with st.sidebar:
         st.image("logos/logos_white.png", use_column_width='auto')
-        selected = option_menu("Methods", ["Raw_Text", 'File', 'URL', 'Evaluate_Summary'],
-                               icons=['pencil', 'folder', 'link','book'], menu_icon="cast", default_index=0)
+        selected = option_menu("Methods", ["Raw_Text", 'File', 'URL', 'Upgrade to Text Article Analyzer PRO'],
+                               icons=['pencil', 'folder', 'link','book', 'diamond'], menu_icon="cast", default_index=0)
 
 # _______________________________________________________________________________________________________________________________
     if selected == "Raw_Text":
@@ -96,10 +96,11 @@ def main():
         num = st.slider("Pick the number of sentences you want to extract: ", 1, 20, 5)
 
         raw_text = st.text_area("Enter Text Here", height=120)
-        col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
+        col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
         count = len(raw_text.split())
+        col1.caption("Words at present:  {} /1000".format(count))
         if count < 1000:
-            if col8.button("Summarize"):
+            if col7.button("Summarize"):
                 try:
                     processed_text = nfx.remove_stopwords(raw_text)
                     with st.expander("Original Text"):
@@ -123,7 +124,7 @@ def main():
                 except:
                     st.warning("Insufficient Data")
         else:
-            st.warning("Words are more than 1000")
+            st.error("Words are more than 1000. Subscribe to Text Article Analyzer PRO")
 
 # _______________________________________________________________________________________________________________________________
     elif selected == "File":
@@ -133,14 +134,15 @@ def main():
         num = st.slider("Pick the number of sentences you want to extract: ", 1, 20, 5)
 
         text_file = st.file_uploader("Upload Document", type=["pdf", "docx", "txt"])
-        col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
+        col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
         if text_file is not None:
 
             if text_file.type == 'application/pdf':
                 raw_text = read_pdf2(text_file)
                 count = len(raw_text.split())
+                col1.caption("Words at present:  {} /1000".format(count))
                 if count < 1000:
-                    if col8.button("Summarize"):
+                    if col7.button("Summarize"):
                         try:
                             processed_text = nfx.remove_stopwords(raw_text)
                             with st.expander("Original Text"):
@@ -164,12 +166,13 @@ def main():
                         except:
                             st.warning("Insufficient Data")
                 else:
-                    st.warning("Words are more than 1000")
+                    st.warning("Words are more than 1000. Subscribe to Text Article Analyzer PRO")
             elif text_file.type == 'text/plain':
                 raw_text = str(text_file.read(), "utf-8")
                 count = len(raw_text.split())
+                col1.caption("Words at present:  {} /1000".format(count))
                 if count < 1000:
-                    if col8.button("Summarize"):
+                    if col7.button("Summarize"):
                         try:
                             processed_text = nfx.remove_stopwords(raw_text)
                             with st.expander("Original Text"):
@@ -193,12 +196,13 @@ def main():
                         except:
                             st.warning("Insufficient Data")
                 else:
-                    st.warning("Words are more than 1000")
+                    st.warning("Words are more than 1000. Subscribe to Text Article Analyzer PRO")
             else:
                 raw_text = docx2txt.process(text_file)
                 count = len(raw_text.split())
+                col1.caption("Words at present:  {} /1000".format(count))
                 if count < 1000:
-                    if col8.button("Summarize"):
+                    if col7.button("Summarize"):
                         try:
                             processed_text = nfx.remove_stopwords(raw_text)
                             with st.expander("Original Text"):
@@ -222,10 +226,7 @@ def main():
                         except:
                             st.warning("Insufficient Data")
                 else:
-                    st.warning("Words are more than 1000")
-
-
-
+                    st.warning("Words are more than 1000. Subscribe to Text Article Analyzer PRO")
 # _______________________________________________________________________________________________________________________________
     elif selected == "URL":
         st.markdown("<h1 style='text-align: center;'>Text Article Analyzer</h1>", unsafe_allow_html=True)
@@ -234,9 +235,9 @@ def main():
         num = st.slider("Pick the number of sentences you want to extract: ", 1, 20, 5)
 
         url = st.text_input('Enter URL here:')
-        col1, col2, col3, col4, col5, col6, col7, col8= st.columns(8)
+        col1, col2, col3, col4, col5, col6, col7= st.columns(7)
 
-        if col8.button("Summarize"):
+        if col7.button("Summarize"):
             valid = validators.url(url)
             if valid == True:
                 response = get(url)
@@ -245,6 +246,7 @@ def main():
                 raw_text = article.cleaned_text
 
                 count = len(raw_text.split())
+                col1.caption("Words at present:  {} /1000".format(count))
                 if count < 1000:
                     processed_text = nfx.remove_stopwords(raw_text)
                     with st.expander("Original Text"):
@@ -266,7 +268,7 @@ def main():
                         with st.expander("Word Frequency"):
                             plot_word_freq(processed_text)
                 else:
-                    st.warning("Words are more than 1000")
+                    st.warning("Words are more than 1000. Subscribe to Text Article Analyzer PRO")
             else:
                 st.warning("Not a Valid URL")
 # _______________________________________________________________________________________________________________________________
@@ -314,6 +316,9 @@ def main():
 
             except:
                 st.warning("Please Check Inputs")
+    elif selected == "Upgrade to Text Article Analyzer PRO":
+        st.markdown("<h1 style='text-align: center;'>Text Article Analyzer</h1>", unsafe_allow_html=True)
+
 
 if __name__ == '__main__':
     main()
